@@ -267,6 +267,10 @@ spawn_t	spawns[] = {
 };
 
 #if defined( QC )
+
+#define SUB_HOURGLASS_SHARD	0x00000001
+#define SUB_HOURGLASS_5HP	0x00000002
+
 /*
 ===============
 itemclasscmp
@@ -288,8 +292,14 @@ qboolean itemclasscmp( const char *itemclass, const char *entclass_ ) {
 		}
 	}
 
-	if ( g_hourglassSubstition.integer ) {
-		if ( !strcmp( entclass, "item_armor_shard") ) {
+	if ( g_hourglassSubstition.integer & SUB_HOURGLASS_SHARD ) {
+		if ( !strcmp( entclass, "item_armor_shard" ) ) {
+			strcpy( entclass, "item_hourglass" );
+		}
+	}
+
+	if ( g_hourglassSubstition.integer & SUB_HOURGLASS_5HP ) {
+		if ( !strcmp( entclass, "item_health_small" ) ) {
 			strcpy( entclass, "item_hourglass" );
 		}
 	}
